@@ -2,11 +2,11 @@ package io.yousefessa.leaderboard.entry;
 
 import org.jetbrains.annotations.NotNull;
 
-public abstract class LeaderboardEntry<T> implements Comparable<LeaderboardEntry<T>> {
+public abstract class LeaderboardEntry<T, D> implements Comparable<T> {
     private final int rank;
-    private final T data;
+    private final D data;
 
-    protected LeaderboardEntry(final int rank, final T data) {
+    protected LeaderboardEntry(final int rank, final D data) {
         this.rank = rank;
         this.data = data;
     }
@@ -14,7 +14,7 @@ public abstract class LeaderboardEntry<T> implements Comparable<LeaderboardEntry
     public abstract String serialize();
 
     @Override
-    public int compareTo(@NotNull final LeaderboardEntry<T> o) {
+    public int compareTo(@NotNull final T o) {
         return 0;
     }
 
@@ -22,7 +22,7 @@ public abstract class LeaderboardEntry<T> implements Comparable<LeaderboardEntry
         return rank;
     }
 
-    public T getData() {
+    public D getData() {
         return data;
     }
 }

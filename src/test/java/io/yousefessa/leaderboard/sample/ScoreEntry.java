@@ -3,7 +3,7 @@ package io.yousefessa.leaderboard.sample;
 import io.yousefessa.leaderboard.entry.LeaderboardEntry;
 import org.jetbrains.annotations.NotNull;
 
-public class ScoreEntry extends LeaderboardEntry<Integer> {
+public class ScoreEntry extends LeaderboardEntry<ScoreEntry, Integer> {
     public static ScoreEntry of(final int rank, final Integer score) {
         return new ScoreEntry(rank, score);
     }
@@ -29,7 +29,7 @@ public class ScoreEntry extends LeaderboardEntry<Integer> {
     }
 
     @Override
-    public int compareTo(@NotNull final LeaderboardEntry<Integer> o) {
+    public int compareTo(@NotNull final ScoreEntry o) {
         return this.getData()
                 .compareTo(o.getData());
     }

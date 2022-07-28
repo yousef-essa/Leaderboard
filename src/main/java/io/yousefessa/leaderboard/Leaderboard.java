@@ -3,9 +3,9 @@ package io.yousefessa.leaderboard;
 import io.yousefessa.leaderboard.entry.LeaderboardEntry;
 import io.yousefessa.leaderboard.entry.adapter.EntryAdapter;
 
-public final class Leaderboard<T extends LeaderboardEntry<?>> {
+public final class Leaderboard<T extends LeaderboardEntry<T, ?>> {
     private final int size;
-    private final LeaderboardEntry<?>[] positionEntry;
+    private final LeaderboardEntry<?, ?>[] positionEntry;
     private final EntryAdapter<T> adapter;
 
     public Leaderboard(final int size, final EntryAdapter<T> adapter) {
@@ -14,19 +14,19 @@ public final class Leaderboard<T extends LeaderboardEntry<?>> {
         }
 
         this.size = size;
-        this.adapter = adapter;
         this.positionEntry = new LeaderboardEntry[size];
+        this.adapter = adapter;
     }
 
-    public void addEntry(T entry) {
+    public void addEntry(LeaderboardEntry<T, ?> entry) {
         int rank = 0;
         for (int i = 0; i < size; i++) {
             rank++;
 
-            final LeaderboardEntry element = positionEntry[i];
+            final LeaderboardEntry<T, ?> element = (LeaderboardEntry<T, ?>) positionEntry[i];
 
             // if the element is null or lesser then, go to the next iteration
-            if (element != null && element.compareTo(entry) <= 0) {
+            if (element != null && element.compareTo((T) entry) <= 0) {
                 continue;
             }
 
@@ -37,7 +37,7 @@ public final class Leaderboard<T extends LeaderboardEntry<?>> {
                 break;
             }
 
-            entry = (T) element;
+            entry = element;
         }
     }
 
