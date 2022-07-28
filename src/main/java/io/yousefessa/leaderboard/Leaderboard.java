@@ -9,6 +9,10 @@ public final class Leaderboard<T extends LeaderboardEntry<?>> {
     private final EntryAdapter<T> adapter;
 
     public Leaderboard(final int size, final EntryAdapter<T> adapter) {
+        if (size <= 0) {
+            throw new IllegalArgumentException("The leaderboard size must start from 1.");
+        }
+
         this.size = size;
         this.adapter = adapter;
         this.positionEntry = new LeaderboardEntry[size];
@@ -26,7 +30,7 @@ public final class Leaderboard<T extends LeaderboardEntry<?>> {
                 continue;
             }
 
-            this.positionEntry[i] = adapter.createInstance(rank, entry.serialize());
+            this.positionEntry[i] = adapter.createEntry(rank, entry.serialize());
 
             // reassigning the element for the next iteration
             if (element == null) {
