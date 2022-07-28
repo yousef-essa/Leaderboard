@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public final class LeaderboardTest {
+    private static final int SIZE = 3;
     private Leaderboard<ScoreEntry> leaderboard;
 
     @BeforeAll
@@ -25,8 +26,10 @@ public final class LeaderboardTest {
 
     @Test
     @Order(1)
-    void rankOneShouldBeNull() {
-        assertNull(this.leaderboard.getEntry(1));
+    void leaderboardShouldBeEmpty() {
+        for (int rank = 1; rank <= SIZE; rank++) {
+            assertNull(this.leaderboard.getEntry(rank));
+        }
     }
 
     @Test
@@ -66,6 +69,33 @@ public final class LeaderboardTest {
     @Order(7)
     void rankTwoShouldHave11Score() {
         final ScoreEntry entry = this.leaderboard.getEntry(2);
+        assertEquals(11, entry.getData());
+    }
+
+    @Test
+    @Order(8)
+    void overrideRankOneWith9Score() {
+        this.leaderboard.addEntry(ScoreEntry.of(9));
+    }
+
+    @Test
+    @Order(10)
+    void rankOneShouldHave9Score() {
+        final ScoreEntry rankOneEntry = this.leaderboard.getEntry(1);
+        assertEquals(9, rankOneEntry.getData());
+    }
+
+    @Test
+    @Order(10)
+    void rankTwoShouldHave10Score() {
+        final ScoreEntry entry = this.leaderboard.getEntry(2);
+        assertEquals(10, entry.getData());
+    }
+
+    @Test
+    @Order(10)
+    void rankThreeShouldHave11Score() {
+        final ScoreEntry entry = this.leaderboard.getEntry(3);
         assertEquals(11, entry.getData());
     }
 }
