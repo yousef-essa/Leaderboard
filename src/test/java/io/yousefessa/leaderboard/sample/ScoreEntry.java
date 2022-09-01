@@ -29,9 +29,9 @@ public class ScoreEntry extends LeaderboardEntry<ScoreEntry, Integer> {
     }
 
     @Override
-    public int compareTo(@NotNull final ScoreEntry o) {
+    public int compareTo(@NotNull final LeaderboardEntry<ScoreEntry, ?> o) {
         return this.getData()
-                .compareTo(o.getData());
+                .compareTo((Integer) o.getData());
     }
 
     @Override
