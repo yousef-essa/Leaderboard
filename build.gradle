@@ -6,6 +6,12 @@ plugins {
 group 'io.yousefessa'
 version '0.0.1'
 
+compileJava {
+    final javaVersion = "1.8"
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+}
+
 repositories {
     mavenCentral()
     mavenCentral()
@@ -14,6 +20,7 @@ repositories {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib"
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testImplementation 'org.mockito:mockito-core:3.+'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }
 
